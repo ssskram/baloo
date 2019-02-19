@@ -17,8 +17,8 @@ router.post('/',
                     'Content-Type': 'application/json'
                 }),
                 body: {
-                    "text": "Hello <@U29GKE80K>! How are we today?",
-                    "channel": "GG9K9JYEM"
+                    "text": "Yo!",
+                    "channel": req.body.event.channel
                 }
             })
             .then(res => console.log(res))
