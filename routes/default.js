@@ -7,7 +7,6 @@ global.Headers = fetch.Headers
 // baloo!
 router.post('/',
     async function (req, res) {
-        console.log(req.body)
         res.sendStatus(200)
         if (req.body.event.channel == "GG9K9JYEM") {
             if (req.body.event.type === "app_mention") {
@@ -40,13 +39,6 @@ const greeting = user => {
     postMessage({
         "text": "Hey, <@" + user + ">! What can I do you for?",
         "channel": "GG9K9JYEM"
-    })
-}
-
-const fourOhThree = channel => {
-    postMessage({
-        "text": "Sorry friend, I can't talk here.",
-        "channel": channel
     })
 }
 
