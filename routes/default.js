@@ -27,7 +27,7 @@ router.post('/',
                 }
                 if (req.body.event.text.includes("LIST")) {
                     // if convo type != null
-                    const type = "provision"
+                    const type = "deploy"
                     listOptions(type)
                 }
             }
@@ -52,7 +52,7 @@ const doWhat = (action) => {
 const listOptions = (type) => {
     // get list of resources by type
     // for each, postMessage
-    const deploymentTypes = ["AccMobile, DPW Maintenance, IP Help, PGH Supply"]
+    const deploymentTypes = ["AccMobile", "DPW Maintenance", "IP Help", "PGH Supply"]
     const provisionTypes = ["Client application", "API"]
     if (type == 'deploy') {
         deploymentTypes.forEach(app => {
