@@ -8,7 +8,7 @@ global.Headers = fetch.Headers
 router.post('/',
     async function (req, res) {
         console.log(req)
-        res.status(200)
+        res.status(200).send('holla')
     }
 )
 
