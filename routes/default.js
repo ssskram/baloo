@@ -16,13 +16,13 @@ router.post('/',
                     'Authorization': 'Bearer ' + process.env.BOT_TOKEN,
                     'Content-Type': 'application/json'
                 }),
-                body: JSON.stringify({
+                body: {
                     "text": "Hello <@U29GKE80K>! How are we today?",
                     "channel": "GG9K9JYEM"
-                })
+                }
             })
             .then(res => console.log(res))
-            .catch(err => console.log(error))
+            .catch(err => console.log(err))
 
     }
 )
