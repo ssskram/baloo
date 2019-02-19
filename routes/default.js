@@ -19,10 +19,17 @@ router.post('/',
                 // check to see if conversation exists
                 // if so, pick up where left off
                 if (req.body.event.text.includes("deploy")) {
-                    deployWhat()
+                    // write deploy to convo type
+                    doWhat('deploy')
                 }
                 if (req.body.event.text.includes("provision")) {
-                    provisionWhat()
+                    // write provision to convo type
+                    doWhat('provision')
+                }
+                if (req.body.event.text.includes("list")) {
+                    // if convo type != null
+                    const type = "deploy"
+                    listOptions(type)
                 }
             }
         } else {
@@ -31,7 +38,7 @@ router.post('/',
     }
 )
 
-greeting = user => {
+const greeting = user => {
     postMessage({
         "text": "Hey, <@" + user + ">! What can I do you for?",
         "channel": "GG9K9JYEM"
@@ -45,17 +52,26 @@ const fourOhThree = channel => {
     })
 }
 
-const deployWhat = () => {
+const doWhat = (action) => {
     postMessage({
-        "text": "What would you like to deploy?",
+        "text": "What would you like to " + action + "?",
+        "channel": "GG9K9JYEM"
+    })
+    postMessage({
+        "text": "To see a list of possible resources to " + action + ", type LIST",
         "channel": "GG9K9JYEM"
     })
 }
 
-const provisionWhat = () => {
-    postMessage({
-        "text": "What would you like to provision?",
-        "channel": "GG9K9JYEM"
+const listOptions = (type) => {
+    // get list of resources by type
+    // for each, postMessage
+    const types = ["AccMobile, DPW Maintenance, IP Help, PGH Supply"]
+    types.forEach(app => {
+        postMessage({
+            "text": app,
+            "channel": "GG9K9JYEM"
+        })
     })
 }
 
@@ -69,4 +85,5 @@ const postMessage = message => {
         body: JSON.stringify(message)
     })
 }
+
 module.exports = router
