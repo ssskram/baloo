@@ -18,6 +18,12 @@ router.post('/',
             if (req.body.event.type === "message") {
                 // check to see if conversation exists
                 // if so, pick up where left off
+                if (payload.event.text.includes("deploy")) {
+                    deployWhat()
+                }
+                if (payload.event.text.includes("provision")) {
+                    provisionWhat()
+                }
             }
         } else {
             fourOhThree(req.body.event.channel)
@@ -36,6 +42,20 @@ const fourOhThree = channel => {
     postMessage({
         "text": "Sorry friend, I can't talk here.",
         "channel": channel
+    })
+}
+
+const deployWhat = () => {
+    postMessage({
+        "text": "What would you like to deploy?",
+        "channel": "GG9K9JYEM"
+    })
+}
+
+const provisionWhat = () => {
+    postMessage({
+        "text": "What would you like to provision?",
+        "channel": "GG9K9JYEM"
     })
 }
 
