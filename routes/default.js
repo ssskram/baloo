@@ -7,10 +7,8 @@ global.Headers = fetch.Headers
 // baloo!
 router.post('/',
     async function (req, res) {
-        console.log(req)
-        console.log(req.body)
-        console.log(req.challenge)
-        res.status(200).send('holla')
+        console.log(req.body.challenge)
+        res.status(200).send(req.body.challenge)
     }
 )
 
