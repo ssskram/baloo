@@ -46,11 +46,13 @@ const doWhat = (action) => {
     postMessage({
         "text": "What would you like to " + action + "?",
         "channel": "GG9K9JYEM"
+    }).then(() => {
+        postMessage({
+            "text": "To see a list of possible resources to " + action + ", type LIST",
+            "channel": "GG9K9JYEM"
+        })
     })
-    postMessage({
-        "text": "To see a list of possible resources to " + action + ", type LIST",
-        "channel": "GG9K9JYEM"
-    })
+
 }
 
 const listOptions = (type) => {
