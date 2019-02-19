@@ -31,7 +31,7 @@ router.post('/',
     }
 )
 
-const greeting = user => {
+greeting = user => {
     postMessage({
         "text": "Hey, <@" + user + ">! What can I do you for?",
         "channel": "GG9K9JYEM"
