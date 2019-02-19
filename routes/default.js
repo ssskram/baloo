@@ -9,6 +9,7 @@ router.post('/',
     async function (req, res) {
         let payload = req.body
         console.log(payload)
+        console.log(req.body.event.channel)
         res.sendStatus(200)
         fetch('https://slack.com/api/chat.postMessage', {
                 method: 'POST',
@@ -16,10 +17,10 @@ router.post('/',
                     'Authorization': 'Bearer ' + process.env.BOT_TOKEN,
                     'Content-Type': 'application/json'
                 }),
-                body: {
+                body: JSON.stringify({
                     "text": "Yo!",
                     "channel": req.body.event.channel
-                }
+                })
             })
             .then(res => console.log(res))
             .catch(err => console.log(err))
