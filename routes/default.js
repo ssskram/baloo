@@ -18,10 +18,10 @@ router.post('/',
             if (req.body.event.type === "message") {
                 // check to see if conversation exists
                 // if so, pick up where left off
-                if (payload.event.text.includes("deploy")) {
+                if (req.body.event.text.includes("deploy")) {
                     deployWhat()
                 }
-                if (payload.event.text.includes("provision")) {
+                if (req.body.event.text.includes("provision")) {
                     provisionWhat()
                 }
             }
