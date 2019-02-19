@@ -32,8 +32,6 @@ router.post('/',
                     listOptions(type)
                 }
             }
-        } else {
-            fourOhThree(req.body.event.channel)
         }
     }
 )
