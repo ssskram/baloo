@@ -7,8 +7,7 @@ global.Headers = fetch.Headers
 // baloo!
 router.post('/',
     async function (req, res) {
-        let payload = req.body
-        console.log(payload)
+        console.log(req.body)
         res.sendStatus(200)
         if (req.body.event.channel == "GG9K9JYEM") {
             if (req.body.event.type === "app_mention") {
