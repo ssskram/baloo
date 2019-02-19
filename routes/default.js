@@ -15,7 +15,7 @@ router.post('/',
                 // of, if conversation exists, start it from the beginning
                 greeting(req.body.event.user)
             }
-            if (req.body.event.type === "message") {
+            if (req.body.event.type === "message" && req.body.event.subtype != 'bot_message') {
                 // check to see if conversation exists
                 // if so, pick up where left off
                 if (req.body.event.text.includes("deploy")) {
