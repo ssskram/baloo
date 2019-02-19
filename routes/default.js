@@ -11,7 +11,15 @@ router.post('/',
         console.log(payload)
         res.sendStatus(200)
         if (req.body.event.channel == "GG9K9JYEM") {
-            greeting(req.body.event.user)
+            if (req.body.event.type === "app_mention") {
+                // create new conversation in mongo here
+                // of, if conversation exists, start it from the beginning
+                greeting(req.body.event.user)
+            }
+            if (req.body.event.type === "message") {
+                // check to see if conversation exists
+                // if so, pick up where left off
+            }
         } else {
             fourOhThree(req.body.event.channel)
         }
@@ -20,7 +28,7 @@ router.post('/',
 
 const greeting = user => {
     postMessage({
-        "text": "Hello, <@" + user + ">! What can I do you for?",
+        "text": "Hey, <@" + user + ">! What can I do you for?",
         "channel": "GG9K9JYEM"
     })
 }
