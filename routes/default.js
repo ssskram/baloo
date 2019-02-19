@@ -25,9 +25,9 @@ router.post('/',
                     // write provision to convo type
                     doWhat('provision')
                 }
-                if (req.body.event.text.includes("list")) {
+                if (req.body.event.text.includes("LIST")) {
                     // if convo type != null
-                    const type = "deploy"
+                    const type = "provision"
                     listOptions(type)
                 }
             }
@@ -44,27 +44,32 @@ const greeting = user => {
 
 const doWhat = (action) => {
     postMessage({
-        "text": "What would you like to " + action + "?",
+        "text": "What would you like to " + action + "? To see a list of options, type LIST",
         "channel": "GG9K9JYEM"
-    }).then(() => {
-        postMessage({
-            "text": "To see a list of possible resources to " + action + ", type LIST",
-            "channel": "GG9K9JYEM"
-        })
     })
-
 }
 
 const listOptions = (type) => {
     // get list of resources by type
     // for each, postMessage
-    const types = ["AccMobile, DPW Maintenance, IP Help, PGH Supply"]
-    types.forEach(app => {
-        postMessage({
-            "text": app,
-            "channel": "GG9K9JYEM"
+    const deploymentTypes = ["AccMobile, DPW Maintenance, IP Help, PGH Supply"]
+    const provisionTypes = ["Client application", "API"]
+    if (type == 'deploy') {
+        deploymentTypes.forEach(app => {
+            postMessage({
+                "text": app,
+                "channel": "GG9K9JYEM"
+            })
         })
-    })
+    }
+    if (type == 'provision') {
+        provisionTypes.forEach(resource => {
+            postMessage({
+                "text": resource,
+                "channel": "GG9K9JYEM"
+            })
+        })
+    }
 }
 
 const postMessage = message => {
