@@ -12,20 +12,21 @@ router.post('/',
         console.log(req.body.event.channel)
         res.sendStatus(200)
         fetch('https://slack.com/api/chat.postMessage', {
-                method: 'POST',
-                headers: new Headers({
-                    'Authorization': 'Bearer ' + process.env.BOT_TOKEN,
-                    'Content-Type': 'application/json'
-                }),
-                body: JSON.stringify({
-                    "text": "Yo!",
-                    "channel": req.body.event.channel
-                })
+            method: 'POST',
+            headers: new Headers({
+                'Authorization': 'Bearer ' + process.env.BOT_TOKEN,
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify({
+                "text": "Hello, <@" + req.body.event.user + ">! What can I do you for?",
+                "channel": req.body.event.channel
             })
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
-
+        })
     }
 )
+
+const greeting = user => {
+
+}
 
 module.exports = router
