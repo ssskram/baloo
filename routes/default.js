@@ -21,6 +21,9 @@ router.post('/',
                     "channel": "GG9K9JYEM"
                 })
             })
+            .then(res => console.log(res))
+            .catch(err => console.log(error))
+
     }
 )
 
