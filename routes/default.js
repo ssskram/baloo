@@ -9,19 +9,16 @@ global.Headers = fetch.Headers
 router.post('/',
     async function (req, res) {
         res.sendStatus(200)
-        if (req.body.event.type === "app_mention") {
-            console.log(req.body)
+        // only listen on channel az-alert
+        if (req.body.event.channel == "GGT3BCHDZ") {
+            // if baloo is mentioned by name
+            if (req.body.event.type === "app_mention") {
+                postMessage({
+                    "text": "Hi, <@" + req.body.event.user + ">!",
+                    "channel": "GGT3BCHDZ"
+                })
+            }
         }
-        // // only listen on channel az-alert
-        // if (req.body.event.channel == "GG9K9JYEM") {
-        //     // if baloo is mentioned by name
-        //     if (req.body.event.type === "app_mention") {
-        //         postMessage({
-        //             "text": "Hi, <@" + req.body.event.user + ">!",
-        //             "channel": "GG9K9JYEM"
-        //         })
-        //     }
-        // }
     }
 )
 
@@ -32,7 +29,7 @@ router.post('/alert',
         if (valid == true) {
             postMessage({
                 "text": "<!channel> (" + req.body.countError + ") " + req.body.errorType + " errors on " + req.body.appName + " at " + req.body.time,
-                "channel": "GG9K9JYEM"
+                "channel": "GGT3BCHDZ"
             })
             res.status(200).end()
         } else res.status(403).end()
@@ -47,13 +44,13 @@ router.post('/activity',
             if (req.body.activity == "Provision") {
                 postMessage({
                     "text": "New " + req.body.type + " provisioned! " + req.body.service + " is up and running.",
-                    "channel": "GG9K9JYEM"
+                    "channel": "GGT3BCHDZ"
                 })
             }
             if (req.body.activity == "Deployment") {
                 postMessage({
                     "text": "New deployment initiated for " + req.body.service + ".",
-                    "channel": "GG9K9JYEM"
+                    "channel": "GGT3BCHDZ"
                 })
             }
             res.status(200).end()
