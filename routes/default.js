@@ -26,6 +26,7 @@ router.post('/',
 router.post('/alert',
     function (req, res) {
         const valid = (checkToken(req.token))
+        console.log(req.body)
         if (valid == true) {
             let message
             if (req,body.countError > 1) {
