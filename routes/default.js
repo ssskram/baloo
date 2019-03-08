@@ -9,7 +9,9 @@ global.Headers = fetch.Headers
 router.post('/',
     async function (req, res) {
         res.sendStatus(200)
-        console.log(req.body)
+        if (req.body.event.type === "app_mention") {
+            console.log(req.body)
+        }
         // // only listen on channel az-alert
         // if (req.body.event.channel == "GG9K9JYEM") {
         //     // if baloo is mentioned by name
