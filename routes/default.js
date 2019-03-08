@@ -49,7 +49,7 @@ router.post('/activity',
             }
             if (req.body.activity == "Deployment") {
                 postMessage({
-                    "text": "New deployment initiated for " + req.body.service,
+                    "text": "New deployment initiated for " + req.body.service + ".",
                     "channel": "GG9K9JYEM"
                 })
             }
