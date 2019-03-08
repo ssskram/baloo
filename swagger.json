@@ -1,0 +1,112 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Baloo",
+        "description": "Friendly sloth bear",
+        "version": "1.0.0"
+    },
+    "host": "baloo.azurewebsites.us",
+    "schemes": [
+        "https"
+    ],
+    "securityDefinitions": {
+        "Bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    },
+    "paths": {
+        "/alert": {
+            "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "summary": "Generate new alert",
+                "description": "Generate an alert in slack channel az-alert",
+                "parameters": [
+                    {
+                        "name": "appName",
+                        "in": "body",
+                        "description": "Name of service",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "errorType",
+                        "in": "body",
+                        "description": "500, 400, etc.",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "countError",
+                        "in": "body",
+                        "description": "Number of errors logged (if passing aggregated average)",
+                        "type": "number",
+                        "required": true
+                    },
+                    {
+                        "name": "time",
+                        "in": "body",
+                        "description": "Time of occurence, friendly-formatted time string",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success!"
+                    },
+                    "403": {
+                        "description": "Access Denied"
+                    }
+                }
+            }
+        },
+        "/activity": {
+            "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "summary": "Broadcast activity",
+                "description": "Post activity to slack channel az-alert",
+                "parameters": [
+                    {
+                        "name": "activity",
+                        "in": "body",
+                        "description": "Type of activity (Deployment | Provision)",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "service",
+                        "in": "body",
+                        "description": "Name of application",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "type",
+                        "in": "body",
+                        "description": "Type of application (Client | API | Lambda)",
+                        "type": "string",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success!"
+                    },
+                    "403": {
+                        "description": "Access Denied"
+                    }
+                }
+            }
+        }
+    }
+}
