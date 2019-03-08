@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const fetch = require('node-fetch')
+const checkToken = require('./../token')
 
 global.Headers = fetch.Headers
 
@@ -8,69 +9,54 @@ global.Headers = fetch.Headers
 router.post('/',
     async function (req, res) {
         res.sendStatus(200)
+        // only listen on channel az-alert
         if (req.body.event.channel == "GG9K9JYEM") {
+            // if baloo is mentioned by name
             if (req.body.event.type === "app_mention") {
-                // create new conversation in mongo here
-                // of, if conversation exists, start it from the beginning
-                greeting(req.body.event.user)
-            }
-            if (req.body.event.type === "message" && req.body.event.subtype != 'bot_message') {
-                // check to see if conversation exists
-                // if so, pick up where left off
-                if (req.body.event.text.includes("deploy")) {
-                    // write deploy to convo type
-                    doWhat('deploy')
-                }
-                if (req.body.event.text.includes("provision")) {
-                    // write provision to convo type
-                    doWhat('provision')
-                }
-                if (req.body.event.text.includes("LIST")) {
-                    // if convo type != null
-                    const type = "deploy"
-                    listOptions(type)
-                }
+                postMessage({
+                    "text": "Hi, <@" + req.body.event.user + ">!",
+                    "channel": "GG9K9JYEM"
+                })
             }
         }
     }
 )
 
-const greeting = user => {
-    postMessage({
-        "text": "Hey, <@" + user + ">! What can I do you for?",
-        "channel": "GG9K9JYEM"
-    })
-}
-
-const doWhat = (action) => {
-    postMessage({
-        "text": "What would you like to " + action + "? To see a list of options, type LIST",
-        "channel": "GG9K9JYEM"
-    })
-}
-
-const listOptions = (type) => {
-    // get list of resources by type
-    // for each, postMessage
-    const deploymentTypes = ["AccMobile", "DPW Maintenance", "IP Help", "PGH Supply"]
-    const provisionTypes = ["Client application", "API"]
-    if (type == 'deploy') {
-        deploymentTypes.forEach(app => {
+// new alert
+router.post('/alert',
+    function (req, res) {
+        const valid = (checkToken(req.token))
+        if (valid == true) {
             postMessage({
-                "text": app,
+                "text": "<!channel> " + req.body.alert + " error on " + req.body.service,
                 "channel": "GG9K9JYEM"
             })
-        })
+            res.status(200).end()
+        } else res.status(403).end()
     }
-    if (type == 'provision') {
-        provisionTypes.forEach(resource => {
-            postMessage({
-                "text": resource,
-                "channel": "GG9K9JYEM"
-            })
-        })
+)
+
+// new activity
+router.post('/activity',
+    function (req, res) {
+        const valid = (checkToken(req.token))
+        if (valid == true) {
+            if (req.body.activity == "Provision") {
+                postMessage({
+                    "text": "New " + req.body.type + " provisioned! " + req.body.service + " is up and running.",
+                    "channel": "GG9K9JYEM"
+                })
+            }
+            if (req.body.activity == "Deployment") {
+                postMessage({
+                    "text": "New deployment initiated for " + req.body.service,
+                    "channel": "GG9K9JYEM"
+                })
+            }
+            res.status(200).end()
+        } else res.status(403).end()
     }
-}
+)
 
 const postMessage = message => {
     fetch('https://slack.com/api/chat.postMessage', {
