@@ -27,14 +27,8 @@ router.post('/alert',
     function (req, res) {
         const valid = (checkToken(req.token))
         if (valid == true) {
-            let message
-            if (req.body.countError > 1) {
-                message = "<!channel> " + req.body.errorType + " error on " + req.body.appName + " at " + req.body.time
-            } else {
-                message = message = "<!channel> " + req.body.countError + " " + req.body.errorType + " error on " + req.body.appName + " at " + req.body.time
-            }
             postMessage({
-                "text": message,
+                "text": "<!channel> " + req.body.countError + " " + req.body.errorType + " errors on " + req.body.appName + " at " + req.body.time,
                 "channel": "GG9K9JYEM"
             })
             res.status(200).end()
