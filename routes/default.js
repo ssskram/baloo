@@ -43,7 +43,7 @@ router.post('/activity',
         if (valid == true) {
             if (req.body.activity == "Provision") {
                 postMessage({
-                    "text": "*Provisioning* " + req.body.service + ", new " + req.body.type + " service",
+                    "text": "*Provisioning* '" + req.body.service + "' -- a new " + req.body.type + " service",
                     "channel": "GGT3BCHDZ"
                 })
             }
