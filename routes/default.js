@@ -28,7 +28,7 @@ router.post('/alert',
         const valid = (checkToken(req.token))
         if (valid == true) {
             postMessage({
-                "text": "<!channel> (" + req.body.countError + ") " + req.body.errorType + " errors on " + req.body.appName + " at " + req.body.time,
+                "text": "<!channel> (" + req.body.countError + ") " + req.body.errorType + " error on " + req.body.appName + " at " + req.body.time,
                 "channel": "GGT3BCHDZ"
             })
             res.status(200).end()
@@ -43,13 +43,13 @@ router.post('/activity',
         if (valid == true) {
             if (req.body.activity == "Provision") {
                 postMessage({
-                    "text": "New " + req.body.type + " provisioned! " + req.body.service + " is up and running.",
+                    "text": "*Provisioning* " + req.body.service + ", new " + req.body.type + " service",
                     "channel": "GGT3BCHDZ"
                 })
             }
             if (req.body.activity == "Deployment") {
                 postMessage({
-                    "text": "New deployment initiated for " + req.body.service + ".",
+                    "text": "*Deploying* " + req.body.service,
                     "channel": "GGT3BCHDZ"
                 })
             }
