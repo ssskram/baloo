@@ -36,6 +36,20 @@ router.post('/alert',
     }
 )
 
+// client error
+router.post('/clientError',
+    function (req, res) {
+        const valid = (checkToken(req.token))
+        if (valid == true) {
+            postMessage({
+                "text": req.body.errorMessage,
+                "channel": "GGT3BCHDZ"
+            })
+            res.status(200).end()
+        } else res.status(403).end()
+    }
+)
+
 // new activity
 router.post('/activity',
     function (req, res) {
