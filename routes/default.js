@@ -42,7 +42,7 @@ router.post('/clientError',
         const valid = (checkToken(req.token))
         if (valid == true) {
             postMessage({
-                "text": req.body.errorMessage,
+                "text": "_" + req.body.errorMessage + "_",
                 "channel": "GGT3BCHDZ"
             })
             res.status(200).end()
