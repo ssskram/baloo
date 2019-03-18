@@ -8,7 +8,7 @@ global.Headers = fetch.Headers
 // baloo!
 router.post('/',
     async function (req, res) {
-        console.log(req.body.event.message)
+        console.log(req.body.event)
         console.log(req.body.event.channel)
         res.sendStatus(200)
         // only listen on channel az-alert
