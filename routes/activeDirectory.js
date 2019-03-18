@@ -5,15 +5,15 @@ const checkToken = require('./../token')
 
 global.Headers = fetch.Headers
 
-// new AD alert
+// new alert, ad-monitor
 router.post('/alert',
     function (req, res) {
         const valid = (checkToken(req.token))
         if (valid == true) {
-            // postMessage({
-            //     "text": "<!channel> " + req.body.user + " logged in from " + req.body.country + " at " + req.body.time + "\n Event id: " + req.body.id,
-            //     "channel": "GGT3BCHDZ"
-            // })
+            postMessage({
+                "text": "*ALERT* " + req.body.user + " logged in from " + req.body.country + " at " + req.body.time + "\n Event id: " + req.body.id,
+                "channel": "GGZNDPJPJ"
+            })
             res.status(200).end()
         } else res.status(403).end()
     }

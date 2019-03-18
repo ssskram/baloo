@@ -5,24 +5,7 @@ const checkToken = require('./../token')
 
 global.Headers = fetch.Headers
 
-// baloo!
-router.post('/',
-    async function (req, res) {
-        res.sendStatus(200)
-        // only listen on channel az-alert
-        if ((req.body.event.channel == "GGT3BCHDZ" || req.body.event.channel == "GGZNDPJPJ")) {
-            // if baloo is mentioned by name
-            if (req.body.event.type === "app_mention") {
-                postMessage({
-                    "text": "Hi, <@" + req.body.event.user + ">!",
-                    "channel": req.body.event.channel
-                })
-            }
-        }
-    }
-)
-
-// new alert
+// new alert, az-monitor
 router.post('/alert',
     function (req, res) {
         const valid = (checkToken(req.token))
