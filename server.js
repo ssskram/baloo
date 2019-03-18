@@ -29,8 +29,8 @@ app.use(require('morgan')('combined'))
 
 // routes
 app.use("/", require('./routes/default'))
-app.use("activeDirectory", require('./routes/activeDirectory.js'))
-app.use("azMonitor", require('./routes/azMonitor.js'))
+app.use("/activeDirectory", require('./routes/activeDirectory.js'))
+app.use("/azMonitor", require('./routes/azMonitor.js'))
 
 // production error handler
 if (app.get('env') === 'production') {
