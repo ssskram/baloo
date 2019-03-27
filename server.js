@@ -30,6 +30,9 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // bearer token
 app.use(bearerToken());
 
+// no access control on default
+app.use("/", require("./routes/default"));
+
 // access control
 app.use((req, res, next) => {
   const valid = checkToken(req.token);
@@ -41,7 +44,6 @@ app.use((req, res, next) => {
 });
 
 // routes
-app.use("/", require("./routes/default"));
 app.use("/activeDirectory", require("./routes/activeDirectory.js"));
 app.use("/azMonitor", require("./routes/azMonitor.js"));
 
